@@ -1,5 +1,8 @@
-import sys
 import os
+from database import (
+    create_table,
+    insert_data
+)
 from parser import (
     Parser3ds,
     ParserFbx,
@@ -40,6 +43,7 @@ def validate_parameters(file_extension, render_type):
 
 
 if __name__ == "__main__":
+    create_table('database.db', 'data')
     while True:
         file, render_type = input("Input file and render type\n").split()
         file_name, file_extension = os.path.splitext(file)
@@ -48,4 +52,5 @@ if __name__ == "__main__":
 
         model = parser.parse_file(file_name)
         renderer.render_model(model)
+        insert_data('database.db', 'data', (model, render_type))
         print("--------------------------")
