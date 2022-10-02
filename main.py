@@ -40,6 +40,7 @@ def validate_parameters(file_extension, render_type):
 
 
 if __name__ == "__main__":
+    rendered_models = []
     while True:
         file, render_type = input("Input file and render type\n").split()
         file_name, file_extension = os.path.splitext(file)
@@ -48,4 +49,7 @@ if __name__ == "__main__":
 
         model = parser.parse_file(file_name)
         renderer.render_model(model)
+        rendered_models.append([model, render_type])
+        print('Rendered models list:')
+        print(rendered_models)
         print("--------------------------")
