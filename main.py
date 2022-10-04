@@ -1,4 +1,3 @@
-import sys
 import os
 from parser import (
     Parser3ds,
@@ -43,13 +42,15 @@ if __name__ == "__main__":
     rendered_models = []
     while True:
         file, render_type = input("Input file and render type\n").split()
+        print('--------')
         file_name, file_extension = os.path.splitext(file)
-
         parser, renderer = validate_parameters(file_extension, render_type)
-
-        model = parser.parse_file(file_name)
-        renderer.render_model(model)
+        model = parser.parse_file(file_name+file_extension)
+        print('--------')
+        renderer.render_model(model.get('name'))
         rendered_models.append([model, render_type])
         print('Rendered models list:')
-        print(rendered_models)
+        print('--------')
+        for item in rendered_models:
+            print(item)
         print("--------------------------")
