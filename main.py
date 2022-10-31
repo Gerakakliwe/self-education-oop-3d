@@ -45,12 +45,12 @@ if __name__ == "__main__":
         print('--------')
         file_name, file_extension = os.path.splitext(file)
         parser, renderer = validate_parameters(file_extension, render_type)
+        print(f"Parser id - {id(parser)}, Renderer id - {id(renderer)}")
         model = parser.parse_file(file_name+file_extension)
         print('--------')
         renderer.render_model(model.get('name'))
         rendered_models.append([model, render_type])
         print('Rendered models list:')
-        print('--------')
         for item in rendered_models:
             print(item)
         print("--------------------------")

@@ -1,0 +1,5 @@
+{
+"name": "ford",
+"materials": ["steel", "plastic"],
+"color": ["100", "100", "100"]
+}

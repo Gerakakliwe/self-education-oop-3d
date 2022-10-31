@@ -6,7 +6,17 @@ class ParserInterface:
         pass
 
 
-class Parser3ds(ParserInterface):
+class ParserMeta(type):
+    _instances = {}
+
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            instance = super().__call__(*args, **kwargs)
+            cls._instances[cls] = instance
+        return cls._instances[cls]
+
+
+class Parser3ds(ParserInterface, metaclass=ParserMeta):
     def parse_file(self, file_name: str):
         with open(file_name, 'r') as f:
             model = json.load(f)
@@ -15,7 +25,7 @@ class Parser3ds(ParserInterface):
         return model
 
 
-class ParserFbx(ParserInterface):
+class ParserFbx(ParserInterface, metaclass=ParserMeta):
     def parse_file(self, file_name: str):
         with open(file_name, 'r') as f:
             model = json.load(f)
@@ -24,7 +34,7 @@ class ParserFbx(ParserInterface):
         return model
 
 
-class ParserCollada(ParserInterface):
+class ParserCollada(ParserInterface, metaclass=ParserMeta):
     def parse_file(self, file_name: str):
         with open(file_name, 'r') as f:
             model = json.load(f)
@@ -34,6 +44,4 @@ class ParserCollada(ParserInterface):
 
 
 def print_parsed_info(model):
-    print(f"Model name - {model.get('name')}")
-    print(f"Materials used - {model.get('materials')}")
-    print(f"Color - {model.get('color')}")
+    print(f"Model name - {model.get('name')}, Materials used - {model.get('materials')}, Color - {model.get('color')}")
