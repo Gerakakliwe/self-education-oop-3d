@@ -41,7 +41,7 @@ if __name__ == "__main__":
         file_name, file_extension = os.path.splitext(file)
         parser, renderer = validate_parameters(file_extension, render_type)
         print(f"Parser id - {id(parser)}, Renderer id - {id(renderer)}")
-        model = parser.parse_file(file_name + file_extension)
+        model = parser.parse_file('input_files/' + file_name + file_extension)
         print('--------')
         rendered_model = renderer.render_model(model)
         print(rendered_model)

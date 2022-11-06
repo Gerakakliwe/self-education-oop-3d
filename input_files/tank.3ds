@@ -1,0 +1,5 @@
+{
+"name": "t-34",
+"materials": ["metal", "glass"],
+"color": ["0", "0", "0"]
+}
