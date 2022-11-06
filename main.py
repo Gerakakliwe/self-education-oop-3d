@@ -12,30 +12,25 @@ from renderer import (
 
 
 def validate_parameters(file_extension, render_type):
-    try:
-        if file_extension == '.3ds':
-            parser = Parser3ds()
-        elif file_extension == '.fbx':
-            parser = ParserFbx()
-        elif file_extension == '.collada':
-            parser = ParserCollada()
-        else:
-            raise ValueError("UNKNOWN FILE EXTENSION, only .3ds, .fbx and .collada are possible")
+    if file_extension == '.3ds':
+        parser = Parser3ds()
+    elif file_extension == '.fbx':
+        parser = ParserFbx()
+    elif file_extension == '.collada':
+        parser = ParserCollada()
+    else:
+        raise ValueError("UNKNOWN FILE EXTENSION, only .3ds, .fbx and .collada are possible")
 
-        if render_type == 'console':
-            renderer = RendererConsole()
-        elif render_type == 'directx':
-            renderer = RendererDirectx()
-        elif render_type == 'opengl':
-            renderer = RendererOpengl()
-        else:
-            raise ValueError("UNKNOWN RENDERER TYPE, only console, directx and opengl are possible")
+    if render_type == 'console':
+        renderer = RendererConsole()
+    elif render_type == 'directx':
+        renderer = RendererDirectx()
+    elif render_type == 'opengl':
+        renderer = RendererOpengl()
+    else:
+        raise ValueError("UNKNOWN RENDERER TYPE, only console, directx and opengl are possible")
 
-        return parser, renderer
-
-    except ValueError as ve:
-        print(ve)
-        exit()
+    return parser, renderer
 
 
 if __name__ == "__main__":
@@ -46,9 +41,10 @@ if __name__ == "__main__":
         file_name, file_extension = os.path.splitext(file)
         parser, renderer = validate_parameters(file_extension, render_type)
         print(f"Parser id - {id(parser)}, Renderer id - {id(renderer)}")
-        model = parser.parse_file(file_name+file_extension)
+        model = parser.parse_file(file_name + file_extension)
         print('--------')
-        renderer.render_model(model.get('name'))
+        rendered_model = renderer.render_model(model)
+        print(rendered_model)
         rendered_models.append([model, render_type])
         print('Rendered models list:')
         for item in rendered_models:
