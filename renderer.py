@@ -2,6 +2,7 @@ class RendererInterface:
     def render_model(self, model):
         pass
 
+
 class RendererMeta(type):
     _instances = {}
 
@@ -11,16 +12,17 @@ class RendererMeta(type):
             cls._instances[cls] = instance
         return cls._instances[cls]
 
+
 class RendererConsole(RendererInterface, metaclass=RendererMeta):
     def render_model(self, model):
-        print(f"Model {model} was successfully rendered by ConsoleRenderer")
+        return f"Model {model.get('name')} parsed by {model.get('parser')} was successfully rendered by ConsoleRenderer"
 
 
 class RendererDirectx(RendererInterface, metaclass=RendererMeta):
     def render_model(self, model):
-        print(f"Model {model} was successfully rendered by DirectXRenderer")
+        return f"Model {model.get('name')} parsed by {model.get('parser')} was successfully rendered by DirectxRenderer"
 
 
 class RendererOpengl(RendererInterface, metaclass=RendererMeta):
     def render_model(self, model):
-        print(f"Model {model} was successfully rendered by OpenglRenderer")
+        return f"Model {model.get('name')} parsed by {model.get('parser')} was successfully rendered by OpenglRenderer"
